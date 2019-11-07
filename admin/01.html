@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Simple markers</title>
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+  Lat <input type=text id="lat" name="lat">
+  Long <input type=text id="lng" name="lng">
+    <div id="map"></div>
+    <script>
+	
+	var lat = document.getElementById('lat');
+	var lng = document.getElementById('lng');
+var marker;
+      function initMap() {
+        var myLatLng = {lat: -25.363, lng: 131.044};
+
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 4,
+          center: myLatLng
+        });
+
+        marker = new google.maps.Marker({
+          position: myLatLng,
+          map: map,
+          title: 'Hello World!'
+        });
+		
+		marker.setDraggable(true);
+		
+		
+		//dragend
+      google.maps.event.addListener(marker, 'drag', function(event) {
+          console.log(event.latLng);
+          console.log("Latitude=" + event.latLng.lat());
+          console.log("Longitude=" + event.latLng.lng());
+		  lat.value = event.latLng.lat();
+		  lng.value = event.latLng.lng();
+        });		
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAbXF62gVyhJOVkRiTHcVp_BkjPYDQfH5w&callback=initMap">
+    </script>
+  </body>
+</html>
